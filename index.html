@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>My Profile</title>
 
 <!-- Icons -->
@@ -10,51 +9,49 @@
 
 <style>
 
+/* Background Canvas */
+
+#matrix{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+background:black;
+}
+
+/* Body */
+
 body{
 margin:0;
 font-family:Arial;
 text-align:center;
 color:white;
-
-/* Background Image + Gradient */
-background:linear-gradient(rgba(0,0,0,0.6), rgba(128,0,255,0.6)),
-url('https://images.unsplash.com/photo-1518770660439-4636190af475');
-
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-}
-
-/* Animated Gradient */
-background:linear-gradient(270deg,#c000ff,#7a00ff,#ff00cc,#3333ff);
-background-size:800% 800%;
-animation:gradientMove 10s ease infinite;
-}
-
-/* Animation */
-
-@keyframes gradientMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
 }
 
 /* Profile */
 
 .profile{
-padding-top:40px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding-top:60px;
 }
 
 .profile img{
-width:120px;
-height:120px;
+width:130px;
+height:130px;
 border-radius:50%;
 border:4px solid white;
+object-fit:cover;
 }
 
+/* Heading */
+
 h1{
-margin:15px 10px;
-font-size:26px;
+margin-top:15px;
 }
 
 /* Buttons */
@@ -84,7 +81,7 @@ overflow:hidden;
 font-size:20px;
 }
 
-/* Glow Hover */
+/* Glow Effect */
 
 .link-btn:hover{
 transform:scale(1.07);
@@ -95,7 +92,7 @@ box-shadow:0 0 15px #ff9800,
            0 0 60px #ff9800;
 }
 
-/* Shine Effect */
+/* Shine Animation */
 
 .link-btn::before{
 content:'';
@@ -117,12 +114,16 @@ left:100%;
 
 <body>
 
+<!-- Hacker Background -->
+<canvas id="matrix"></canvas>
+
+<!-- Profile -->
 <div class="profile">
 <img src="IMG_20260213_135646_194.webp">
-<h1>Welcome To My Profile Page</h1>
+<h1>Welcome To My Profile</h1>
 </div>
 
-<!-- Buttons -->
+<!-- Links -->
 
 <a class="link-btn" href="https://instagram.com/tohid.__.king._.3" target="_blank">
 <i class="fab fa-instagram"></i> Instagram
@@ -151,6 +152,47 @@ left:100%;
 <a class="link-btn" href="mailto:officialcontactmdtohid@gmail.com">
 <i class="fas fa-envelope"></i> Email Me
 </a>
+
+<!-- Hacker Animation Script -->
+
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+
+for(let i = 0; i < columns; i++){
+drops[i] = 1;
+}
+
+function draw(){
+ctx.fillStyle = "rgba(0,0,0,0.05)";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.fillStyle = "#0f0";
+ctx.font = fontSize + "px monospace";
+
+for(let i = 0; i < drops.length; i++){
+const text = letters.charAt(Math.floor(Math.random() * letters.length));
+ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+drops[i] = 0;
+}
+
+drops[i]++;
+}
+}
+
+setInterval(draw, 33);
+</script>
 
 </body>
 </html>
