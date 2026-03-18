@@ -2,15 +2,14 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Profile</title>
+<title>Hacker Profile</title>
 
 <!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* Background Canvas */
-
+/* Matrix Background */
 #matrix{
 position:fixed;
 top:0;
@@ -22,7 +21,6 @@ background:black;
 }
 
 /* Body */
-
 body{
 margin:0;
 font-family:Arial;
@@ -31,7 +29,6 @@ color:white;
 }
 
 /* Profile */
-
 .profile{
 display:flex;
 flex-direction:column;
@@ -48,14 +45,11 @@ border:4px solid white;
 object-fit:cover;
 }
 
-/* Heading */
-
 h1{
 margin-top:15px;
 }
 
 /* Buttons */
-
 .link-btn{
 display:flex;
 align-items:center;
@@ -81,8 +75,7 @@ overflow:hidden;
 font-size:20px;
 }
 
-/* Glow Effect */
-
+/* Glow */
 .link-btn:hover{
 transform:scale(1.07);
 background:#ff9800;
@@ -92,8 +85,7 @@ box-shadow:0 0 15px #ff9800,
            0 0 60px #ff9800;
 }
 
-/* Shine Animation */
-
+/* Shine */
 .link-btn::before{
 content:'';
 position:absolute;
@@ -109,12 +101,32 @@ transition:0.5s;
 left:100%;
 }
 
+/* Terminal */
+.terminal{
+width:90%;
+max-width:400px;
+margin:30px auto;
+background:black;
+color:#00ff00;
+padding:15px;
+border-radius:10px;
+font-family:monospace;
+text-align:left;
+box-shadow:0 0 15px #00ff00;
+min-height:100px;
+}
+
+#typing{
+margin:0;
+white-space:pre-line;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- Hacker Background -->
+<!-- Matrix Background -->
 <canvas id="matrix"></canvas>
 
 <!-- Profile -->
@@ -153,8 +165,12 @@ left:100%;
 <i class="fas fa-envelope"></i> Email Me
 </a>
 
-<!-- Hacker Animation Script -->
+<!-- Terminal -->
+<div class="terminal">
+<p id="typing"></p>
+</div>
 
+<!-- Matrix Script -->
 <script>
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
@@ -192,6 +208,38 @@ drops[i]++;
 }
 
 setInterval(draw, 33);
+</script>
+
+<!-- Typing Script -->
+<script>
+const text = [
+"Initializing system...",
+"Access granted...",
+"Connecting to server...",
+"Fetching data...",
+"Welcome Tohid..."
+];
+
+let line = 0;
+let char = 0;
+const speed = 50;
+
+function typeEffect(){
+if(line < text.length){
+if(char < text[line].length){
+document.getElementById("typing").innerHTML += text[line].charAt(char);
+char++;
+setTimeout(typeEffect, speed);
+}else{
+document.getElementById("typing").innerHTML += "\n";
+line++;
+char = 0;
+setTimeout(typeEffect, 500);
+}
+}
+}
+
+typeEffect();
 </script>
 
 </body>
